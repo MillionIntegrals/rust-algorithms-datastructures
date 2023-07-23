@@ -2,6 +2,7 @@ use rand::Rng;
 
 pub mod leftist_heap;
 pub mod binary_heap_vec;
+pub mod binomial_heap;
 
 pub trait Heap<T : Ord> {
     fn peek(&self) -> Option<&T>;

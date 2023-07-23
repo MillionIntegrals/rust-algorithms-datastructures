@@ -1,5 +1,6 @@
 use super::Heap;
 
+
 struct Node<T> {
     element: T,
     left: Option<Box<Node<T>>>,
@@ -91,6 +92,10 @@ impl<T: Ord> Heap<T> for LeftistHeap<T> {
 
     fn size(&self) -> usize {
         self.size_helper(&self.root)
+    }
+
+    fn clear(&mut self) {
+        self.root = None;
     }
 
 }

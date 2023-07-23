@@ -11,17 +11,22 @@ impl<T: Ord + Clone> BinaryHeapVec<T> {
         BinaryHeapVec { data: vec![] }
     }
 
+    /// Bubble up element at given index
     fn sift_up(&mut self, index: usize) {
         let mut child_index = index;
         let child_value = self.data[index].clone();
 
+        // While we are not at the top
         while child_index > 0 {
+            // Find index of my parent
             let parent_index = (child_index - 1) / 2;
 
+            // If child is larger or equal to the parent, we stop
             if child_value >= self.data[parent_index] {
                 break;
             }
 
+            // Otherwise, we override data of child with the data of the parent
             self.data[child_index] = self.data[parent_index].clone();
             child_index = parent_index;
         }
@@ -89,6 +94,10 @@ impl<T: Ord + Clone> Heap<T> for BinaryHeapVec<T> {
 
     fn size(&self) -> usize {
         self.data.len()
+    }
+
+    fn clear(&mut self) {
+        self.data.clear()
     }
 }
 
