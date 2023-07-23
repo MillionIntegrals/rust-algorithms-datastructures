@@ -10,3 +10,5 @@ name = "algods"
 path = "src/lib.rs"
 
 [dependencies]
+csv = "1.2.2"
+rand = "0.8.5"
