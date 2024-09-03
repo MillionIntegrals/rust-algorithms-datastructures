@@ -1,14 +1,15 @@
 [package]
-name = "rust-algorithms-datastructures"
+name = "algods"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[lib]
-name = "algods"
-path = "src/lib.rs"
+# [lib]
+# name = "algods"
+# path = "src/lib.rs"
 
 [dependencies]
+clap = { version = "4.5.16", features = ["cargo", "string"] }
 csv = "1.2.2"
 rand = "0.8.5"
