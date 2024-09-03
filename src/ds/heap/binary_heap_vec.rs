@@ -1,6 +1,5 @@
 use super::Heap;
 
-
 #[derive(Default)]
 pub struct BinaryHeapVec<T: Ord + Clone> {
     data: Vec<T>,
@@ -56,8 +55,7 @@ impl<T: Ord + Clone> BinaryHeapVec<T> {
 
         self.data[parent_index] = parent_value;
     }
-} 
-
+}
 
 impl<T: Ord + Clone> Heap<T> for BinaryHeapVec<T> {
     fn push(&mut self, value: T) {
@@ -100,7 +98,6 @@ impl<T: Ord + Clone> Heap<T> for BinaryHeapVec<T> {
         self.data.clear()
     }
 }
-
 
 #[cfg(test)]
 mod tests {

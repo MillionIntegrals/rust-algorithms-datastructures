@@ -41,10 +41,10 @@ impl<T: Ord + Clone> BinomialHeap<T> {
         BinomialHeap { trees: Vec::new() }
     }
 
-
     pub fn merge_heap(&mut self, other: BinomialHeap<T>) {
         self.trees.append(&mut other.trees.clone());
-        self.trees.sort_by(|a, b| a.children.len().cmp(&b.children.len()));
+        self.trees
+            .sort_by(|a, b| a.children.len().cmp(&b.children.len()));
         let mut i = 0;
         while i + 1 < self.trees.len() {
             if self.trees[i].children.len() == self.trees[i + 1].children.len() {
@@ -57,7 +57,6 @@ impl<T: Ord + Clone> BinomialHeap<T> {
     }
 }
 
-
 impl<T: Ord + Clone> Heap<T> for BinomialHeap<T> {
     fn push(&mut self, element: T) {
         let node = Node::new(element);
@@ -65,7 +64,10 @@ impl<T: Ord + Clone> Heap<T> for BinomialHeap<T> {
     }
 
     fn peek(&self) -> Option<&T> {
-        self.trees.iter().min_by(|x, y| x.element.cmp(&y.element)).map(|node| &node.element)
+        self.trees
+            .iter()
+            .min_by(|x, y| x.element.cmp(&y.element))
+            .map(|node| &node.element)
     }
 
     fn pop(&mut self) -> Option<T> {
@@ -74,10 +76,18 @@ impl<T: Ord + Clone> Heap<T> for BinomialHeap<T> {
         }
 
         // Find the tree with the minimum root
-        let min_index = self.trees.iter().enumerate().min_by(|(_, x), (_, y)| x.element.cmp(&y.element)).map(|(index, _)| index)?;
+        let min_index = self
+            .trees
+            .iter()
+            .enumerate()
+            .min_by(|(_, x), (_, y)| x.element.cmp(&y.element))
+            .map(|(index, _)| index)?;
 
         // Remove the minimum root
-        let Node { element, mut children } = self.trees.remove(min_index);
+        let Node {
+            element,
+            mut children,
+        } = self.trees.remove(min_index);
 
         // Make each child a new tree
         children.reverse();
@@ -90,14 +100,16 @@ impl<T: Ord + Clone> Heap<T> for BinomialHeap<T> {
     }
 
     fn size(&self) -> usize {
-        self.trees.iter().map(|t| 2_usize.pow(t.children.len() as u32)).sum()
+        self.trees
+            .iter()
+            .map(|t| 2_usize.pow(t.children.len() as u32))
+            .sum()
     }
 
     fn clear(&mut self) {
         self.trees.clear()
     }
 }
-
 
 #[cfg(test)]
 mod tests {

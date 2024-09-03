@@ -1,6 +1,5 @@
 use super::Heap;
 
-
 struct Node<T> {
     element: T,
     left: Option<Box<Node<T>>>,
@@ -23,17 +22,19 @@ pub struct LeftistHeap<T> {
     root: Option<Box<Node<T>>>,
 }
 
-
 impl<T: Ord> LeftistHeap<T> {
     pub fn new() -> LeftistHeap<T> {
         LeftistHeap { root: None }
     }
-    
+
     // fn merge(&mut self, mut other: LeftistHeap<T>) {
     //     self.root = Self::merge_nodes(self.root.take(), other.root.take());
     // }
-    
-    fn merge_nodes(left: Option<Box<Node<T>>>, right: Option<Box<Node<T>>>) -> Option<Box<Node<T>>> {
+
+    fn merge_nodes(
+        left: Option<Box<Node<T>>>,
+        right: Option<Box<Node<T>>>,
+    ) -> Option<Box<Node<T>>> {
         match (left, right) {
             (None, right) => right,
             (left, None) => left,
@@ -50,10 +51,13 @@ impl<T: Ord> LeftistHeap<T> {
             }
         }
     }
-    
+
     fn update_rank(node: &mut Box<Node<T>>) {
         let rank_left = node.left.as_ref().map_or(0, |left_node| left_node.rank + 1);
-        let rank_right = node.right.as_ref().map_or(0, |right_node| right_node.rank + 1);
+        let rank_right = node
+            .right
+            .as_ref()
+            .map_or(0, |right_node| right_node.rank + 1);
         node.rank = std::cmp::min(rank_left, rank_right);
         if rank_left < rank_right {
             std::mem::swap(&mut node.left, &mut node.right);
@@ -62,14 +66,11 @@ impl<T: Ord> LeftistHeap<T> {
 
     fn size_helper(&self, node: &Option<Box<Node<T>>>) -> usize {
         match node {
-            Some(node) => {
-                1 + self.size_helper(&node.left) + self.size_helper(&node.right)
-            },
+            Some(node) => 1 + self.size_helper(&node.left) + self.size_helper(&node.right),
             None => 0,
         }
     }
 }
-
 
 impl<T: Ord> Heap<T> for LeftistHeap<T> {
     fn peek(&self) -> Option<&T> {
@@ -97,9 +98,7 @@ impl<T: Ord> Heap<T> for LeftistHeap<T> {
     fn clear(&mut self) {
         self.root = None;
     }
-
 }
-
 
 #[cfg(test)]
 mod tests {
