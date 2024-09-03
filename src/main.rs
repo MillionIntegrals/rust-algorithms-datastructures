@@ -6,6 +6,7 @@ use analysis::commands::CommandMap;
 use clap::Command;
 
 
+/// Register commands in a given CommandMap into a clap::Command
 pub fn register_commands(map: &CommandMap, command: Command) -> Command {
     let mut c = command;
 
@@ -19,9 +20,13 @@ pub fn register_commands(map: &CommandMap, command: Command) -> Command {
 }
 
 
+/// Run registered main command
 fn main() {
     let mut cm = CommandMap::new();
+
+    // BEGIN REGISTRATION BLOCK
     analysis::heaps::register_commands(&mut cm);
+    // END REGISTRATION BLOCK
 
     let mut command = Command::new("algods").version("0.1").about("Rust algorithms and data structures").subcommand_required(true).propagate_version(true);
     command = register_commands(&cm, command);
