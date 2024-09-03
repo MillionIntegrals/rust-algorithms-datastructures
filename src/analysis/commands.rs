@@ -9,16 +9,14 @@ pub trait CommandRunner {
 struct FunctionRunner(fn() -> ());
 
 impl CommandRunner for FunctionRunner {
-    fn execute(&self) {
-        (self.0)()
-    }
+    fn execute(&self) { (self.0)() }
 }
 
 
 pub struct CommandDescriptor {
     pub name: String,
     pub description: String,
-    pub action: Box<dyn CommandRunner>
+    action: Box<dyn CommandRunner>
 }
 
 
