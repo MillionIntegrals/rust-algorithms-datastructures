@@ -15,12 +15,6 @@ pub trait Heap<T : Ord> {
     }
 }
 
-pub fn insert_n_elements<H : Heap<i32>>(heap: &mut H, n: i32) {
-    for i in 1..n {
-        heap.push(i);
-    }
-}
-
 pub fn generate_random_vector(n: usize) -> Vec<i32> {
     let mut rng = rand::thread_rng();
     let mut vec = Vec::new();
@@ -30,6 +24,12 @@ pub fn generate_random_vector(n: usize) -> Vec<i32> {
     }
     
     vec
+}
+
+pub fn insert_n_elements<H : Heap<i32>>(heap: &mut H, n: i32) {
+    for i in 1..n {
+        heap.push(i);
+    }
 }
 
 pub fn insert_n_vector_elements<H : Heap<i32>>(heap: &mut H, vec: &Vec<i32>) {
